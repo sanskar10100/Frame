@@ -2,10 +2,13 @@ package dev.sanskar.frame.ui.login
 
 import android.app.Activity.RESULT_OK
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
@@ -61,6 +64,12 @@ class LoginFragment : Fragment() {
 
             if (response != null) {
                 Log.d(TAG, "onSignInResult: ${response.error?.errorCode}")
+                Toast.makeText(
+                    context,
+                    "A sign in error occurred! Please try again later!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Handler(Looper.getMainLooper()).postDelayed({ requireActivity().finish() }, 1000)
             }
         }
     }
