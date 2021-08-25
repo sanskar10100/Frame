@@ -15,16 +15,16 @@ class TasksListAdapter(private val viewModel: MainViewModel) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val task = viewModel.tasks.value?.get(position)
+        val task = viewModel.pendingTasks.value?.get(position)
         holder.binding.textViewTaskItem.text = task?.item
         holder.binding.textViewTaskTimestamp.text = task?.timestamp.toString()
 
         holder.binding.checkboxTask.setOnClickListener {
             viewModel.removeTask(position)
             notifyItemRemoved(position)
-            notifyItemRangeRemoved(position, viewModel.tasks.value?.size!!)
+            notifyItemRangeRemoved(position, viewModel.pendingTasks.value?.size!!)
         }
     }
 
-    override fun getItemCount() = viewModel.tasks.value?.size!!
+    override fun getItemCount() = viewModel.pendingTasks.value?.size!!
 }

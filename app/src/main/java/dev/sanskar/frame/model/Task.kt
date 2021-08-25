@@ -6,7 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class Task(
     val item: String,
-    val status: String,
+    var status: String,
     val timestamp: Long,
     @Exclude @get: Exclude var id: String
 ) {

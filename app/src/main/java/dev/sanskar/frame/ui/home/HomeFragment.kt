@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dev.sanskar.frame.R
@@ -47,7 +45,7 @@ class HomeFragment : Fragment() {
             }
 
             viewModel.loadTasks()
-            viewModel.tasks.observe(viewLifecycleOwner) {
+            viewModel.pendingTasks.observe(viewLifecycleOwner) {
                 Log.d(TAG, "onViewCreated: Setting adapter")
                 binding.listTasks.layoutManager = LinearLayoutManager(context)
                 binding.listTasks.adapter = TasksListAdapter(viewModel)

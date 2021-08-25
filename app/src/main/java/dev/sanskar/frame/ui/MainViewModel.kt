@@ -13,11 +13,12 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import dev.sanskar.frame.model.Task
 import dev.sanskar.frame.utils.TAG
+import dev.sanskar.frame.utils.TaskStates
 
 class MainViewModel : ViewModel() {
 
     private val user: FirebaseUser = Firebase.auth.currentUser!!
-    val tasks = MutableLiveData<MutableList<Task>>()
+    val pendingTasks = MutableLiveData<MutableList<Task>>()
     val toastMessage = MutableLiveData<String>()
 
     fun loadTasks() {
@@ -29,13 +30,14 @@ class MainViewModel : ViewModel() {
                     for (child in snapshot.children) {
                         val task = child.getValue<Task>()
                         task?.id = child.key.toString()
-                        tempTasksList.add(task!!)
+
+                        if (task?.status == TaskStates.pending.toString()) tempTasksList.add(task)
 
                         Log.d(TAG, "onDataChange: $task")
                     }
-                    tasks.value = tempTasksList
+                    pendingTasks.value = tempTasksList
 
-                    Log.d(TAG, "onDataChange: ${tasks.value}")
+                    Log.d(TAG, "onDataChange: ${pendingTasks.value}")
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -45,13 +47,20 @@ class MainViewModel : ViewModel() {
     }
 
     fun removeTask(position: Int) {
-        val tasksCopy = tasks.value
-        tasksCopy?.removeAt(position)
-        tasks.value = tasksCopy
+        val task = pendingTasks.value?.get(position)
+        task?.status = TaskStates.completed.toString()
+        Firebase.database.reference.child("users").child(user.uid).child(task?.id!!)
+            .setValue(task)
+            .addOnSuccessListener {
+                toastMessage.value = "Task marked complete!"
+            }
+            .addOnFailureListener {
+                toastMessage.value = "Task Completion failed successfully!"
+            }
     }
 
     fun addTask(taskContent: String) {
-        val task = Task(taskContent, "pending", System.currentTimeMillis(), "")
+        val task = Task(taskContent, TaskStates.pending.toString(), System.currentTimeMillis(), "")
         Firebase.database.reference.child("users").child(user.uid).push()
             .setValue(task)
             .addOnSuccessListener {
