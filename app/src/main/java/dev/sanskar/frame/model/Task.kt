@@ -9,4 +9,6 @@ data class Task(
     val status: String,
     val timestamp: Long,
     @Exclude @get: Exclude var id: String
-)
+) {
+    constructor() : this("", "", 0, "")
+}

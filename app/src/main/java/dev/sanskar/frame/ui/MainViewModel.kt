@@ -18,9 +18,10 @@ class MainViewModel : ViewModel() {
 
     private val user: FirebaseUser = Firebase.auth.currentUser!!
     val tasks = MutableLiveData<MutableList<Task>>()
+    val toastMessage = MutableLiveData<String>()
 
     fun loadTasks() {
-        Firebase.database.reference.child(user.uid)
+        Firebase.database.reference.child("users").child(user.uid)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d(TAG, "onDataChange: $snapshot")
@@ -47,5 +48,17 @@ class MainViewModel : ViewModel() {
         val tasksCopy = tasks.value
         tasksCopy?.removeAt(position)
         tasks.value = tasksCopy
+    }
+
+    fun addTask(taskContent: String) {
+        val task = Task(taskContent, "pending", System.currentTimeMillis(), "")
+        Firebase.database.reference.child("users").child(user.uid).push()
+            .setValue(task)
+            .addOnSuccessListener {
+                    toastMessage.value = "Task Added Successfully!"
+            }
+            .addOnFailureListener {
+                toastMessage.value = "Task Addition Failed Successfully!"
+            }
     }
 }
