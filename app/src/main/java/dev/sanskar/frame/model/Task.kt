@@ -8,5 +8,5 @@ data class Task(
     val item: String,
     val status: String,
     val timestamp: Long,
-    @Exclude @get: Exclude val id: String
+    @Exclude @get: Exclude var id: String
 )
