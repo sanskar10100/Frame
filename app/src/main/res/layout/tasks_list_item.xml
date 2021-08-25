@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="TextView"
-            android:textColor="@color/black"
+            android:textColor="@color/taskItemTextColor"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/checkbox_task"
             app:layout_constraintTop_toTopOf="parent" />
