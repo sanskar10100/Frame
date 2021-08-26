@@ -69,6 +69,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (Firebase.auth.currentUser == null) {
+            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+        } else {
+            viewModel.toastMessage.observe(viewLifecycleOwner) {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.loadTasks()
+
         binding.viewpager2TasksFragments.adapter = TasksFragmentAdapter(this)
         TabLayoutMediator(binding.tabLayout, binding.viewpager2TasksFragments) { tab, position ->
             tab.text = when (position) {
@@ -83,6 +92,5 @@ class HomeFragment : Fragment() {
                 binding.viewpager2TasksFragments.crossfade(binding.lottieLoadingTasks, 500)
             }
         }
-
     }
 }
