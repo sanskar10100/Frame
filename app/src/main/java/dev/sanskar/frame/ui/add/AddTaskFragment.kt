@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dev.sanskar.frame.databinding.FragmentAddTaskBinding
 import dev.sanskar.frame.ui.MainViewModel
+import dev.sanskar.frame.utils.hideKeyboard
 import dev.sanskar.frame.utils.showKeyboard
 
 class AddTaskFragment : BottomSheetDialogFragment() {
@@ -30,14 +31,27 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         binding.textInputLayoutAddTask.editText?.requestFocus()
         context?.showKeyboard()
 
-        binding.buttonAddTask.setOnClickListener {
-            val taskText = binding.textInputLayoutAddTask.editText?.text.toString().trim()
-            if (taskText.isEmpty()) {
-                binding.textInputLayoutAddTask.error = "Task Detail cannot be empty"
-            } else {
-                viewModel.addTask(taskText)
-                dismiss()
+        binding.buttonAddTask.setOnClickListener { checkTaskContent() }
+
+        binding.textInputLayoutAddTask.editText?.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    checkTaskContent()
+                    true
+                }
+                else -> false
             }
+        }
+    }
+
+    private fun checkTaskContent() {
+        val taskText = binding.textInputLayoutAddTask.editText?.text.toString().trim()
+        if (taskText.isEmpty()) {
+            binding.textInputLayoutAddTask.error = "Task Detail cannot be empty"
+        } else {
+            viewModel.addTask(taskText)
+            context?.hideKeyboard()
+            dismiss()
         }
     }
 }
