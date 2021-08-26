@@ -20,6 +20,7 @@ class MainViewModel : ViewModel() {
     private val user: FirebaseUser = Firebase.auth.currentUser!!
     val pendingTasks = MutableLiveData<MutableList<Task>>()
     val completedTasks = MutableLiveData<MutableList<Task>>()
+    val tasksListLoaded = MutableLiveData<Boolean>(false)
     val toastMessage = MutableLiveData<String>()
 
     fun loadTasks() {
@@ -39,10 +40,11 @@ class MainViewModel : ViewModel() {
                     }
                     pendingTasks.value = tempPendingTasksList
                     completedTasks.value = tempCompletedTasksList
-
+                    tasksListLoaded.value = true
 
                     Log.d(TAG, "onDataChange: ${pendingTasks.value}")
                     Log.d(TAG, "onDataChange: ${completedTasks.value}")
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {

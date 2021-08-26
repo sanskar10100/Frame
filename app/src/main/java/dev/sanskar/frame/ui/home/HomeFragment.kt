@@ -16,6 +16,7 @@ import dev.sanskar.frame.R
 import dev.sanskar.frame.databinding.FragmentHomeBinding
 import dev.sanskar.frame.ui.MainViewModel
 import dev.sanskar.frame.utils.TAG
+import dev.sanskar.frame.utils.crossfade
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -45,6 +46,12 @@ class HomeFragment : Fragment() {
             }
 
             viewModel.loadTasks()
+            viewModel.tasksListLoaded.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.tasksViewGroup.crossfade(binding.lottieLoadingTasks, 500)
+                }
+            }
+
             viewModel.pendingTasks.observe(viewLifecycleOwner) {
                 Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
                 binding.listPendingTasks.layoutManager = LinearLayoutManager(context)
