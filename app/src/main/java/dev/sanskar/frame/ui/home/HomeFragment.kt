@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dev.sanskar.frame.R
@@ -31,38 +32,57 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        if (Firebase.auth.currentUser == null) {
+//            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+//        } else {
+//            viewModel.toastMessage.observe(viewLifecycleOwner) {
+//                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+//            }
+//
+//            binding.fabAddTask.setOnClickListener {
+//                findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
+//            }
+//
+//            viewModel.loadTasks()
+//            viewModel.tasksListLoaded.observe(viewLifecycleOwner) {
+//                if (it) {
+//                    binding.tasksViewGroup.crossfade(binding.lottieLoadingTasks, 500)
+//                }
+//            }
+//
+//            viewModel.pendingTasks.observe(viewLifecycleOwner) {
+//                Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
+//                binding.listPendingTasks.layoutManager = LinearLayoutManager(context)
+//                binding.listPendingTasks.adapter = TasksListAdapter(viewModel)
+//            }
+//
+//            viewModel.completedTasks.observe(viewLifecycleOwner) {
+//                Log.d(TAG, "onViewCreated: Setting completed tasks adapter")
+//                binding.listCompletedTasks.layoutManager = LinearLayoutManager(context)
+//                binding.listCompletedTasks.adapter = TasksListAdapter(viewModel, true)
+//            }
+//        }
+//    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (Firebase.auth.currentUser == null) {
-            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-        } else {
-            viewModel.toastMessage.observe(viewLifecycleOwner) {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        binding.viewpager2TasksFragments.adapter = TasksFragmentAdapter(this)
+        TabLayoutMediator(binding.tabLayout, binding.viewpager2TasksFragments) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Pending"
+                1 -> "Completed"
+                else -> "N/A"
             }
+        }.attach()
 
-            binding.fabAddTask.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
-            }
-
-            viewModel.loadTasks()
-            viewModel.tasksListLoaded.observe(viewLifecycleOwner) {
-                if (it) {
-                    binding.tasksViewGroup.crossfade(binding.lottieLoadingTasks, 500)
-                }
-            }
-
-            viewModel.pendingTasks.observe(viewLifecycleOwner) {
-                Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
-                binding.listPendingTasks.layoutManager = LinearLayoutManager(context)
-                binding.listPendingTasks.adapter = TasksListAdapter(viewModel)
-            }
-
-            viewModel.completedTasks.observe(viewLifecycleOwner) {
-                Log.d(TAG, "onViewCreated: Setting completed tasks adapter")
-                binding.listCompletedTasks.layoutManager = LinearLayoutManager(context)
-                binding.listCompletedTasks.adapter = TasksListAdapter(viewModel, true)
+        viewModel.tasksListLoaded.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.viewpager2TasksFragments.crossfade(binding.lottieLoadingTasks, 500)
             }
         }
+
     }
 }
