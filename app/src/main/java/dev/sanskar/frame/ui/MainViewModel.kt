@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     private val user: FirebaseUser = Firebase.auth.currentUser!!
     val pendingTasks = MutableLiveData<MutableList<Task>>()
     val completedTasks = MutableLiveData<MutableList<Task>>()
-    val tasksListLoaded = MutableLiveData<Boolean>(false)
+    val tasksListLoaded = MutableLiveData(false)
     val toastMessage = MutableLiveData<String>()
 
     fun loadTasks() {
