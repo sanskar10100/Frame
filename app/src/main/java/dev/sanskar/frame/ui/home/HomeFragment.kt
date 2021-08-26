@@ -32,41 +32,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        if (Firebase.auth.currentUser == null) {
-//            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-//        } else {
-//            viewModel.toastMessage.observe(viewLifecycleOwner) {
-//                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-//            }
-//
-//            binding.fabAddTask.setOnClickListener {
-//                findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
-//            }
-//
-//            viewModel.loadTasks()
-//            viewModel.tasksListLoaded.observe(viewLifecycleOwner) {
-//                if (it) {
-//                    binding.tasksViewGroup.crossfade(binding.lottieLoadingTasks, 500)
-//                }
-//            }
-//
-//            viewModel.pendingTasks.observe(viewLifecycleOwner) {
-//                Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
-//                binding.listPendingTasks.layoutManager = LinearLayoutManager(context)
-//                binding.listPendingTasks.adapter = TasksListAdapter(viewModel)
-//            }
-//
-//            viewModel.completedTasks.observe(viewLifecycleOwner) {
-//                Log.d(TAG, "onViewCreated: Setting completed tasks adapter")
-//                binding.listCompletedTasks.layoutManager = LinearLayoutManager(context)
-//                binding.listCompletedTasks.adapter = TasksListAdapter(viewModel, true)
-//            }
-//        }
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (Firebase.auth.currentUser == null) {
