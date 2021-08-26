@@ -14,6 +14,7 @@ import dev.sanskar.frame.databinding.FragmentPendingTasksBinding
 import dev.sanskar.frame.ui.MainViewModel
 import dev.sanskar.frame.ui.home.TasksListAdapter
 import dev.sanskar.frame.utils.TAG
+import dev.sanskar.frame.utils.crossfade
 
 class PendingTasksFragment : Fragment() {
     private lateinit var binding: FragmentPendingTasksBinding
@@ -36,8 +37,13 @@ class PendingTasksFragment : Fragment() {
         }
 
         viewModel.pendingTasks.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
-            binding.listPendingTasks.adapter = TasksListAdapter(viewModel)
+            if (it.isNotEmpty()) {
+                binding.listPendingTasks.crossfade(binding.lottieEmptyPendingTaskList, 200)
+                Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
+                binding.listPendingTasks.adapter = TasksListAdapter(viewModel)
+            } else {
+                binding.lottieEmptyPendingTaskList.crossfade(binding.listPendingTasks, 200)
+            }
         }
     }
 }

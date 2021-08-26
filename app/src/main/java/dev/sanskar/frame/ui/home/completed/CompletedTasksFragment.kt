@@ -12,6 +12,7 @@ import dev.sanskar.frame.databinding.FragmentCompletedTasksBinding
 import dev.sanskar.frame.ui.MainViewModel
 import dev.sanskar.frame.ui.home.TasksListAdapter
 import dev.sanskar.frame.utils.TAG
+import dev.sanskar.frame.utils.crossfade
 
 class CompletedTasksFragment : Fragment() {
     private lateinit var binding: FragmentCompletedTasksBinding
@@ -30,9 +31,14 @@ class CompletedTasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.listCompletedTasks.layoutManager = LinearLayoutManager(context)
 
-        viewModel.pendingTasks.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
-            binding.listCompletedTasks.adapter = TasksListAdapter(viewModel, true)
+        viewModel.completedTasks.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                binding.listCompletedTasks.crossfade(binding.lottieEmptyCompletedTaskList, 200)
+                Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
+                binding.listCompletedTasks.adapter = TasksListAdapter(viewModel, true)
+            } else {
+                binding.lottieEmptyCompletedTaskList.crossfade(binding.listCompletedTasks, 200)
+            }
         }
     }
 }

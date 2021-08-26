@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.completed.CompletedTasksFragment">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lottie_empty_completed_task_list"
+        app:lottie_rawRes="@raw/no_completed_task_anim"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_completed_tasks"
         android:layout_width="match_parent"
