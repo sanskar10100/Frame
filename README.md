@@ -1,10 +1,18 @@
 # Frame
 
-Frame for Android - A minimalistic Tasks app available for [Web](https://todoist-todo.firebaseapp.com/) and [Android](https://github.com)
+Frame for Android - A minimalistic Tasks app available for [Web](https://todoist-todo.firebaseapp.com/) and [Android](https://github.com/sanskar10100/Frame/releases/download/v1.0/Frame.1.0.apk)
 
 ## Demo
 
-Coming soon
+https://user-images.githubusercontent.com/22092047/131017643-657ad552-2e9c-4ebf-be83-675c319a7dd3.mp4
+
+## Light Mode
+![Frame Light](https://user-images.githubusercontent.com/22092047/131018323-13863c58-cb3b-4958-a0a9-a82d50d6cba7.png)
+
+## Dark Mode
+![Frame Dark](https://user-images.githubusercontent.com/22092047/131018606-2bffbe37-9e45-4d06-8ce6-4742370e78dc.png)
+
+
 
 ## Stack
 - Android SDK API 30
