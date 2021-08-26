@@ -1,5 +1,7 @@
 package dev.sanskar.frame.ui.home
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +24,7 @@ class TasksListAdapter(private val viewModel: MainViewModel) : RecyclerView.Adap
         holder.binding.textViewTaskTimestamp.text = SimpleDateFormat("hh:mm a, dd/MM/yy", Locale.ENGLISH).format(task?.timestamp)
 
         holder.binding.checkboxTask.setOnClickListener {
-            viewModel.removeTask(position)
-            notifyItemRemoved(position)
-            notifyItemRangeRemoved(position, viewModel.pendingTasks.value?.size!!)
+            Handler(Looper.getMainLooper()).postDelayed({ viewModel.removeTask(position) }, 300)
         }
     }
 
