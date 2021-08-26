@@ -20,6 +20,8 @@ https://user-images.githubusercontent.com/22092047/131017643-657ad552-2e9c-4ebf-
 - Clean MVVM Architecture
 - Firebase (Auth and RTDB)
 - Navigation Component & ktx
+- Coil Image Loading Library
+- Lottie
 
 ## Build
 
