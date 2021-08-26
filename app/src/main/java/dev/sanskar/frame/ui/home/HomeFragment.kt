@@ -46,9 +46,15 @@ class HomeFragment : Fragment() {
 
             viewModel.loadTasks()
             viewModel.pendingTasks.observe(viewLifecycleOwner) {
-                Log.d(TAG, "onViewCreated: Setting adapter")
-                binding.listTasks.layoutManager = LinearLayoutManager(context)
-                binding.listTasks.adapter = TasksListAdapter(viewModel)
+                Log.d(TAG, "onViewCreated: Setting pending tasks adapter")
+                binding.listPendingTasks.layoutManager = LinearLayoutManager(context)
+                binding.listPendingTasks.adapter = TasksListAdapter(viewModel)
+            }
+
+            viewModel.completedTasks.observe(viewLifecycleOwner) {
+                Log.d(TAG, "onViewCreated: Setting completed tasks adapter")
+                binding.listCompletedTasks.layoutManager = LinearLayoutManager(context)
+                binding.listCompletedTasks.adapter = TasksListAdapter(viewModel, true)
             }
         }
     }

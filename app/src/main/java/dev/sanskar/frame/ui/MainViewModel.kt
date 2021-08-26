@@ -19,6 +19,7 @@ class MainViewModel : ViewModel() {
 
     private val user: FirebaseUser = Firebase.auth.currentUser!!
     val pendingTasks = MutableLiveData<MutableList<Task>>()
+    val completedTasks = MutableLiveData<MutableList<Task>>()
     val toastMessage = MutableLiveData<String>()
 
     fun loadTasks() {
@@ -26,18 +27,22 @@ class MainViewModel : ViewModel() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d(TAG, "onDataChange: $snapshot")
-                    val tempTasksList = mutableListOf<Task>()
+                    val tempPendingTasksList = mutableListOf<Task>()
+                    val tempCompletedTasksList = mutableListOf<Task>()
                     for (child in snapshot.children) {
                         val task = child.getValue<Task>()
                         task?.id = child.key.toString()
 
-                        if (task?.status == TaskStates.pending.toString()) tempTasksList.add(task)
+                        if (task?.status == TaskStates.pending.toString()) tempPendingTasksList.add(task) else tempCompletedTasksList.add(task!!)
 
                         Log.d(TAG, "onDataChange: $task")
                     }
-                    pendingTasks.value = tempTasksList
+                    pendingTasks.value = tempPendingTasksList
+                    completedTasks.value = tempCompletedTasksList
+
 
                     Log.d(TAG, "onDataChange: ${pendingTasks.value}")
+                    Log.d(TAG, "onDataChange: ${completedTasks.value}")
                 }
 
                 override fun onCancelled(error: DatabaseError) {
