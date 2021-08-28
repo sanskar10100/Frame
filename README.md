@@ -1,6 +1,6 @@
 # Frame
 
-Frame - A minimalistic Tasks app available for [Web](https://todoist-todo.firebaseapp.com/) and [Android](https://github.com/sanskar10100/Frame/releases/download/v1.0/Frame.1.0.apk)
+Frame - A minimalistic Tasks app available for [Web](https://todoist-todo.firebaseapp.com/) and [Android](https://github.com/sanskar10100/Frame/releases/download/v1.0/Frame.1.0.apk) featuring realtime sync.
 
 ## Demo
 
