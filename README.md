@@ -2,20 +2,25 @@
 
 Frame - A minimalistic Tasks app available for [Web](https://todoist-todo.firebaseapp.com/) and [Android](https://github.com/sanskar10100/Frame/releases/download/v1.0/Frame.1.0.apk) featuring realtime sync.
 
-## Demo
+# Material Design 3 Capture
+![Frame-MD3](https://user-images.githubusercontent.com/22092047/139270160-24fe123c-5439-4e6a-819c-86bd38ab6578.png)
+
+
+## Demo (MD2)
 
 https://user-images.githubusercontent.com/22092047/131017643-657ad552-2e9c-4ebf-be83-675c319a7dd3.mp4
 
-## Light Mode
+## Light Mode (MD2)
 ![Frame Light](https://user-images.githubusercontent.com/22092047/131018323-13863c58-cb3b-4958-a0a9-a82d50d6cba7.png)
 
-## Dark Mode
+## Dark Mode (MD2)
 ![Frame Dark](https://user-images.githubusercontent.com/22092047/131018606-2bffbe37-9e45-4d06-8ce6-4742370e78dc.png)
 
 
 
 ## Stack
 - Android SDK API 30
+- Material Design 3
 - Kotlin
 - Clean MVVM Architecture
 - Firebase (Auth and RTDB)
