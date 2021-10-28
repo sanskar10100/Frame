@@ -33,7 +33,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
         binding.buttonAddTask.setOnClickListener { checkTaskContent() }
 
-        binding.textInputLayoutAddTask.editText?.setOnEditorActionListener { v, actionId, event ->
+        binding.textInputLayoutAddTask.editText?.setOnEditorActionListener { _, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     checkTaskContent()
